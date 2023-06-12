@@ -1,6 +1,7 @@
 package com.phissy.expensetracker.service;
 
 import com.phissy.expensetracker.entity.Expense;
+import com.phissy.expensetracker.exception.ResourceNotFoundException;
 import com.phissy.expensetracker.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,6 @@ public class ExpenseServiceImpl implements ExpenseService{
         if (expense.isPresent()){
             return expense.get();
         }
-        throw new RuntimeException("Expense not found for id "+expenseId);
+        throw new ResourceNotFoundException("Expense not found for id "+expenseId);
     }
 }
