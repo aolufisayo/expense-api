@@ -41,4 +41,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         errorObject.setTimeStamp(new Date());
         return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorObject> handleUserExistsException(UserNotFoundException exception, WebRequest request){
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.CONFLICT.value());
+        errorObject.setMessage(exception.getMessage());
+        errorObject.setTimeStamp(new Date());
+        return new ResponseEntity<ErrorObject>(errorObject, HttpStatus.CONFLICT);
+    }
 }
