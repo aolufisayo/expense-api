@@ -3,6 +3,8 @@ package com.phissy.expensetracker.controller;
 import com.phissy.expensetracker.entity.Expense;
 import com.phissy.expensetracker.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +29,8 @@ public class ExpenseController {
     }
 
     @GetMapping("/expenses")
-    public List<Expense> getAllExpenses(){
-        return expenseService.getAllExpenses();
+    public Page<Expense> getAllExpenses(Pageable page){
+        return expenseService.getAllExpenses(page);
     }
 
     @PutMapping("/expenses/{expenseId}")

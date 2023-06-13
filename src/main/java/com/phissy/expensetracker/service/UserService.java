@@ -12,4 +12,6 @@ public interface UserService {
 
     User readUser(Long id);
 
+    User getLoggedInUser();
+
 }

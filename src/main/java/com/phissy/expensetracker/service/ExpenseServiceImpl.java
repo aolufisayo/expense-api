@@ -4,6 +4,8 @@ import com.phissy.expensetracker.entity.Expense;
 import com.phissy.expensetracker.exception.ResourceNotFoundException;
 import com.phissy.expensetracker.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,9 @@ public class ExpenseServiceImpl implements ExpenseService{
     @Autowired
     private ExpenseRepository expenseRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public void deleteExpense(Long expenseId) {
         Expense expense = getExpenseById(expenseId);
@@ -23,6 +28,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 
     @Override
     public Expense addExpense(Expense expense) {
+        expense.setUser(userService.getLoggedInUser());
         return expenseRepository.save(expense);
     }
 
@@ -37,8 +43,8 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
-    public List<Expense> getAllExpenses() {
-        return expenseRepository.findAll();
+    public Page<Expense> getAllExpenses(Pageable page) {
+        return expenseRepository.findByUserId(userService.getLoggedInUser().getId(), page);
     }
 
     @Override
