@@ -10,7 +10,7 @@ public interface UserService {
 
     void deleteUser(Long userId);
 
-    User readUser(Long id);
+    User readUser();
 
     User getLoggedInUser();
 
