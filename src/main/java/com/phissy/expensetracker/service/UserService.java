@@ -6,9 +6,9 @@ import com.phissy.expensetracker.entity.UserModel;
 public interface UserService {
     User createUser(UserModel user);
 
-    User updateUser(Long userId, User user);
+    User updateUser(UserModel user);
 
-    void deleteUser(Long userId);
+    void deleteUser();
 
     User readUser();
 
